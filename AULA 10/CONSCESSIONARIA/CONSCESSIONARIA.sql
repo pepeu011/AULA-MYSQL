@@ -1,0 +1,42 @@
+CREATE DATABASE CONSCESSIONARIA;
+
+USE CONSCESSIONARIA;
+
+CREATE TABLE Cliente (
+    ID_Cliente VARCHAR(10) NOT NULL PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    CPF VARCHAR(11) NOT NULL UNIQUE,
+    NVI VARCHAR(20),
+    Endereço VARCHAR(255),
+    Data_Nascimento DATE,
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Carro (
+    ID_Carro VARCHAR(10) NOT NULL PRIMARY KEY,
+    Modelo VARCHAR(100) NOT NULL,
+    Marca VARCHAR(100) NOT NULL,
+    Ano YEAR NOT NULL,
+    Cor VARCHAR(50),
+    Quilometragem INT,
+    Tipo VARCHAR(50),
+    Preço_Anterior DECIMAL(10, 2)
+);
+
+CREATE TABLE Compra (
+    ID_Compra VARCHAR(10) NOT NULL PRIMARY KEY,
+    ID_Cliente VARCHAR(10) NOT NULL,
+    ID_Carro VARCHAR(10) NOT NULL,
+    Valor_LO DECIMAL(10, 2) NOT NULL,
+    Preço_Modelo DECIMAL(10, 2) NOT NULL,
+    Data_Compra DATE NOT NULL,
+    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente),
+    FOREIGN KEY (ID_Carro) REFERENCES Carro(ID_Carro)
+);
+
+CREATE TABLE Cliente_Telefone (
+    ID_Cliente VARCHAR(10) NOT NULL,
+    Telefone VARCHAR(15) NOT NULL,
+    PRIMARY KEY (ID_Cliente, Telefone),
+    FOREIGN KEY (ID_Cliente) REFERENCES Cliente(ID_Cliente)
+);
